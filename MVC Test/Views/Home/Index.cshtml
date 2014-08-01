@@ -1,0 +1,62 @@
+﻿@model MVC_Test.Models.CustDistrModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        $("#ddldistr").not(':visible');
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <table style="width:100%">
+            <tr>
+                <td style="width:50%">
+                    <b>Customer</b><br />
+                    @Html.DropDownListFor(m => m.CustomerModel, new SelectList(Model.CustomerModel, "Id", "CustomerName"), new { @id = "ddlcustomer", @onchange = "javascript:GetDistr(this.value);" })
+                </td>
+                <td style="width:50%">
+                    <b>Distributor</b><br />
+                    <select id="ddldistr" name="ddldistr" hidden="hidden">
+
+                    </select>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <br /><br /><br /><br />
+
+}
+
+<script language="javascript" type="text/javascript">
+    function GetDistr(_distrId) {
+
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#ddldistr").html(procemessage).show();
+        var url = "/Home/GetDistrByCustId/";
+        
+        $.ajax({
+            url: url,
+            data: { id: _distrId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "";
+                for (var i = 0; i < data.length; i++) {
+                    markup += "<option value=" + data[i].Value + ">" + data[i].Text + "</option>";
+                }
+                $("#ddldistr").html(markup).show();
+            },
+            error: function (response) {
+                alert("error: " + response);
+            }
+
+        });
+    }
+</script>
