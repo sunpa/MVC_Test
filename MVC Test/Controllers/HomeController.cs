@@ -36,7 +36,7 @@ namespace MVC_Test.Controllers
 
             SelectList listdistr = new SelectList(distrslist, "Id", "DistributorName");
 
-            return Json(distrslist);
+            return Json(listdistr);
         }
 
 

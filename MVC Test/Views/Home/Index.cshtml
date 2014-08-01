@@ -15,17 +15,43 @@
         <table style="width:100%">
             <tr>
                 <td style="width:50%">
-                    <b>Customer</b><br />
+                    <b><font color="red">*</font>Customer</b><br />
                     @Html.DropDownListFor(m => m.CustomerModel, new SelectList(Model.CustomerModel, "Id", "CustomerName"), new { @id = "ddlcustomer", @onchange = "javascript:GetDistr(this.value);" })
                 </td>
                 <td style="width:50%">
-                    <b>Distributor</b><br />
+                    <b><font color="red">*</font>Distributor</b><br />
                     <select id="ddldistr" name="ddldistr" hidden="hidden">
-
                     </select>
                 </td>
             </tr>
-
+            <tr><td style="height:20px">
+            <tr>
+                <td style="width:50%">
+                    <b><font color="red">*</font>Customer PO</b><br />
+                    @Html.TextBox("CustomerPO", "", new { style="width:100px" } )
+                </td>
+                <td style="width:50%">
+                    <b><font color="red">*</font>PO Value($)</b><br />
+                    @Html.TextBox("POValue", "", new { style = "width:80px" })
+                </td>
+            </tr>
+            <tr><td style="height:20px">
+            <tr>
+                <td style="width:50%">
+                    <b>Due Date</b><br />
+                    
+                </td>
+                <td style="width:50%">
+                    <b>Priority</b><br />
+                    @Html.DropDownList("Priority", new List<SelectListItem> 
+                        { 
+                            new SelectListItem { Text="Urgent", Value = "4"},
+                            new SelectListItem { Text="High", Value = "3"},
+                            new SelectListItem { Text="Normal", Value = "2"},
+                            new SelectListItem { Text="Low", Value = "1"}                        
+                        })
+                </td>
+            </tr>
         </table>
 
     </div>
