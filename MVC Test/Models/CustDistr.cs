@@ -25,4 +25,10 @@ namespace MVC_Test.Models
         //public int CustId { get; set; }
         public string DistributorName { get; set; }
     }
+
+    public class Locales
+    {
+        public int Id { get; set; }
+        public string LocaleName { get; set; }
+    }
 }

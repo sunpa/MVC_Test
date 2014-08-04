@@ -15,3 +15,28 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* for modal */
+.modal.fade {
+         left: -25%;
+          -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+             -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+               -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+                  transition: opacity 0.3s linear, left 0.3s ease-out;
+    }
+
+.modal.fade.in {
+    left: 50%;
+}
+
+.modal-body {
+    max-height: 420px;
+}
+
+#locale-editor {
+    width: 600px;
+    margin-left: -300px;
+    margin-right: -300px;
+}
+
+
