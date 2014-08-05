@@ -15,6 +15,9 @@ namespace MVC_Test.Controllers
             objCustDistrModel.CustomerModel = new List<Customer>();
             objCustDistrModel.CustomerModel = GetCustomers();
 
+            //objCustDistrModel.LanguageModel = new List<Language>();
+            //objCustDistrModel.LanguageModel = GetLanguages();
+
             return View(objCustDistrModel);
         }
 
@@ -40,48 +43,48 @@ namespace MVC_Test.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult GetLocalesByTerritory(int id)
-        {
-            string code = "";
+        //[HttpPost]
+        //public ActionResult GetLanguagesByTerritory(int id)
+        //{
+        //    string code = "";
 
-            switch (id)
-            {
-                case 1:
-                    code = "US";
-                    break;
+        //    switch (id)
+        //    {
+        //        case 1:
+        //            code = "US";
+        //            break;
 
-                case 2:
-                    code = "FR";
-                    break;
+        //        case 2:
+        //            code = "FR";
+        //            break;
 
-                case 3:
-                    code = "CA";
-                    break;
+        //        case 3:
+        //            code = "CA";
+        //            break;
 
-                case 4:
-                    code = "SE";
-                    break;
+        //        case 4:
+        //            code = "SE";
+        //            break;
 
-                case 5:
-                    code = "MX";
-                    break;
-            }
+        //        case 5:
+        //            code = "MX";
+        //            break;
+        //    }
 
-            List<Locales> objlocales = new List<Locales>();
-            objlocales = GetLocales().Where(m => m.LocaleName.Contains(code)).ToList();
+        //    List<Locales> objlocales = new List<Locales>();
+        //    objlocales = GetLocales().Where(m => m.LocaleName.Contains(code)).ToList();
 
-            List<Locales> objlocaleslist = new List<Locales>();
+        //    List<Locales> objlocaleslist = new List<Locales>();
 
-            for (int i = 0; i < objlocales.Count; i++)
-            {
-                objlocaleslist.Add(new Locales { Id = i, LocaleName = objlocales[i].ToString() });
-            }
+        //    for (int i = 0; i < objlocales.Count; i++)
+        //    {
+        //        objlocaleslist.Add(new Locales { Id = i, LocaleName = objlocales[i].ToString() });
+        //    }
 
-            SelectList listlocales = new SelectList(objlocales, "Id", "LocaleName");
+        //    SelectList listlocales = new SelectList(objlocales, "Id", "LocaleName");
 
-            return Json(listlocales);
-        }
+        //    return Json(listlocales);
+        //}
 
 
 
@@ -109,15 +112,27 @@ namespace MVC_Test.Controllers
             return objdist;
         }
 
-        public List<Locales> GetLocales()
+        //public List<Language> GetLanguages()
+        //{
+        //    List<Language> objlanguages = new List<Language>();
+        //    objlanguages.Add(new Language { Id = 0, LanguageName = "--- Select ---" });
+        //    objlanguages.Add(new Language { Id = 1, LanguageName = "English (en)" });
+        //    objlanguages.Add(new Language { Id = 2, LanguageName = "French (fr)" });
+        //    objlanguages.Add(new Language { Id = 3, LanguageName = "Spanish (es)" });
+        //    objlanguages.Add(new Language { Id = 4, LanguageName = "Swedish (sv)" });
+
+        //    return objlanguages;
+        //}
+
+        public List<Locale> GetLocales()
         {
-            List<Locales> objlocales = new List<Locales>();
-            objlocales.Add(new Locales { Id = 1, LocaleName = "en-US"});
-            objlocales.Add(new Locales { Id = 2, LocaleName = "fr-FR"});
-            objlocales.Add(new Locales { Id = 3, LocaleName = "fr-CA"});
-            objlocales.Add(new Locales { Id = 4, LocaleName = "es-MX"});
-            objlocales.Add(new Locales { Id = 5, LocaleName = "en-CA"});
-            objlocales.Add(new Locales { Id = 6, LocaleName = "sv-SE"});
+            List<Locale> objlocales = new List<Locale>();
+            objlocales.Add(new Locale { Id = 1, LocaleName = "en-US" });
+            objlocales.Add(new Locale { Id = 2, LocaleName = "fr-FR" });
+            objlocales.Add(new Locale { Id = 3, LocaleName = "fr-CA" });
+            objlocales.Add(new Locale { Id = 4, LocaleName = "es-MX" });
+            objlocales.Add(new Locale { Id = 5, LocaleName = "en-CA" });
+            objlocales.Add(new Locale { Id = 6, LocaleName = "sv-SE" });
 
             return objlocales;
         }

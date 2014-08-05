@@ -98,18 +98,21 @@
                    new SelectListItem{ Text = "Canada (CA)", Value = "3"},
                    new SelectListItem{ Text = "Sweden (SE)", Value = "4"},
                    new SelectListItem{ Text = "Mexico (MX)", Value = "5"}
-               }, new { @id = "ddlterritory", @onchange = "javascript:GetLocales(this.value);" })
+               }, new { @id = "ddlterritory", @onchange = "javascript: populateLanguage(this.value);" })
 
             </div>
+            
             <div class="controls span6">
                 <label class="control-label" for="Title">Language:</label>
-                <select name="ddllocales" id="ddllocales" hidden="hidden"></select>
-           
-                <label class="control-label" for="Magazine">Publication</label>
-                <input type="text" class="input-xlarge" id="Magazine" name="Magazine"
-                       placeholder="Magazine" />
-                <input type="text" class="input-xlarge" id="Url" name="Url"
-                       placeholder="Url" />
+                <label id="lang"></label>
+                <br /><br />
+                <input type="button" id="addLanguage" name="addLanguage" value="Add" />
+            </div>
+
+            <div class="controls span6">
+                <label class="control-label" for="Title">Locales:</label>
+                
+
             </div>
         </div>
     </div>
@@ -125,6 +128,17 @@
 
 
 <script language="javascript" type="text/javascript">
+
+    function populateLocales()
+    {
+        var terri = $('#ddlterritory option:selected').text();
+        var lang = $('#ddllanguage option:selected').text();
+        var locale = lang.substr(lang.length-3, 2) + "-" + terri.substr(terri.length-3, 2);
+
+        alert(locale);
+
+    }
+
     function GetDistr(_distrId) {
 
         var procemessage = "<option value='0'> Please wait...</option>";
@@ -150,25 +164,53 @@
         });
     }
 
-    function GetLocales(_territoryId) {
-        var url = "/Home/GetLocalesByTerritory/";
+    function populateLanguage(_territoryId) {
+        var language = ""; 
 
-        $.ajax({
-            url: url,
-            data: { id: _territoryId },
-            cache: false,
-            type: "POST",
-            success: function (data) {
-                var markup = "";
-                for (var i = 0; i < data.length; i++) {
-                    markup += "<option value=" + data[i].Value + ">" + data[i].Text + "</option>";
-                }
-                $("#ddllocales").html(markup).show();
-            },
-            error: function (response) {
-                alert("error: " + response);
-            }
-        });
+        switch (_territoryId) {
 
+            case "1":
+                language = "English (en)";
+                break;
+
+            case "2":
+                language = "French (fr)";
+                break;
+
+            case "3":
+                language = "English (en)";
+                break;
+
+            case "4":
+                language = "Swedish (sv)";
+                break;
+
+            case "5":
+                language = "Spanish (es)";
+                break;
+        }
+        $("#lang").html(language).show();
     }
+
+    //function GetLanguages(_territoryId) {
+    //    var url = "/Home/GetLanguagesByTerritory/";
+
+    //    $.ajax({
+    //        url: url,
+    //        data: { id: _territoryId },
+    //        cache: false,
+    //        type: "POST",
+    //        success: function (data) {
+    //            var markup = "";
+    //            for (var i = 0; i < data.length; i++) {
+    //                markup += "<option value=" + data[i].Value + ">" + data[i].Text + "</option>";
+    //            }
+    //            $("#ddllanguages").html(markup).show();
+    //        },
+    //        error: function (response) {
+    //            alert("error: " + response);
+    //        }
+    //    });
+
+    //}
 </script>

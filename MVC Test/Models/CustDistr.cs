@@ -9,6 +9,8 @@ namespace MVC_Test.Models
     public class CustDistrModel
     {
         public List<Customer> CustomerModel { get; set; }
+
+        //public List<Language> LanguageModel { get; set; }
         public SelectList FilteredCustomer { get; set; }
     }
 
@@ -26,7 +28,13 @@ namespace MVC_Test.Models
         public string DistributorName { get; set; }
     }
 
-    public class Locales
+    //public class Language
+    //{
+    //    public int Id { get; set; }
+    //    public string LanguageName { get; set; }
+    //}
+
+    public class Locale
     {
         public int Id { get; set; }
         public string LocaleName { get; set; }
