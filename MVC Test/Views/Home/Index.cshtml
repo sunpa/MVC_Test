@@ -79,7 +79,7 @@
 
 }
 
-@using (Html.BeginForm("locales", "home", FormMethod.Post, new { id="localeForm" }))
+@using (Html.BeginForm("Locales", "Home", FormMethod.Post, new { id="localeForm" }))
 { 
 <div class="modal fade" id="locale-editor">
     <div class="modal-header">
@@ -106,7 +106,9 @@
                 <label class="control-label" for="Title">Language:</label>
                 <label id="lang"></label>
                 <br /><br />
-                <input type="button" id="addLanguage" name="addLanguage" value="Add" />
+                <a type="button"
+                   class="btn"                   
+                   onclick="javascript: populateLocales();">Add</a>
             </div>
 
             <div class="controls span6">
@@ -132,7 +134,8 @@
     function populateLocales()
     {
         var terri = $('#ddlterritory option:selected').text();
-        var lang = $('#ddllanguage option:selected').text();
+        var lang = $('#lang').val.toString();
+        alert(lang.length);
         var locale = lang.substr(lang.length-3, 2) + "-" + terri.substr(terri.length-3, 2);
 
         alert(locale);
