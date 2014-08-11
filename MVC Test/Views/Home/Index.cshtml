@@ -21,7 +21,7 @@
             <tr>
                 <td style="width:50%">
                     <b><font color="red">*</font>Customer</b><br />
-                    @Html.DropDownListFor(m => m.CustomerModel, new SelectList(Model.CustomerModel, "Id", "CustomerName"), new { @id = "ddlcustomer", @onchange = "javascript:GetDistr(this.value);" })
+                    @Html.DropDownListFor(m => m.CustomerModel, new SelectList(Model.CustomerModel, "Id", "CustomerName"), new { @id = "ddlcustomer", @onchange = "javascript:getDistr(this.value);" })
                 </td>
                 <td style="width:50%">
                     <b><font color="red">*</font>Distributor</b><br />
@@ -98,14 +98,15 @@
                    new SelectListItem{ Text = "Canada (CA)", Value = "3"},
                    new SelectListItem{ Text = "Sweden (SE)", Value = "4"},
                    new SelectListItem{ Text = "Mexico (MX)", Value = "5"}
-               }, new { @id = "ddlterritory", @onchange = "javascript: populateLanguage(this.value);" })
+               }, new { @id = "ddlterritory", @onchange = "javascript: getLanguages(this.value);" })
 
             </div>
             
             <div class="controls span6">
                 <label class="control-label" for="Title">Language:</label>
-                <label id="lang"></label>
+                <select id="ddllanguage" name="ddllanguage" hidden="hidden"></select>
                 <br /><br />
+
                 <a type="button"
                    class="btn"                   
                    onclick="javascript: populateLocales();">Add</a>
@@ -113,7 +114,7 @@
 
             <div class="controls span6">
                 <label class="control-label" for="Title">Locales:</label>
-                
+                @*@Html.ListBox(lbLocales)*@
 
             </div>
         </div>
@@ -133,16 +134,14 @@
 
     function populateLocales()
     {
-        var terri = $('#ddlterritory option:selected').text();
-        var lang = $('#lang').val.toString();
-        alert(lang.length);
+        var terri = $("#ddlterritory option:selected").text();
+        var lang = $("#ddllanguage option:selected").text();
         var locale = lang.substr(lang.length-3, 2) + "-" + terri.substr(terri.length-3, 2);
 
         alert(locale);
-
     }
 
-    function GetDistr(_distrId) {
+    function getDistr(_distrId) {
 
         var procemessage = "<option value='0'> Please wait...</option>";
         $("#ddldistr").html(procemessage).show();
@@ -167,53 +166,26 @@
         });
     }
 
-    function populateLanguage(_territoryId) {
-        var language = ""; 
+    function getLanguages(_territoryId) {
+        var url = "/Home/GetLanguagesByTerritory/";
 
-        switch (_territoryId) {
+        $.ajax({
+            url: url,
+            data: { id: _territoryId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "";
+                for (var i = 0; i < data.length; i++) {
+                    markup += "<option value=" + data[i].Value + ">" + data[i].Text + "</option>";
+                }
+                $("#ddllanguage").html(markup).show();
+            },
+            error: function (response) {
+                alert("error: " + response);
+            }
+        });
 
-            case "1":
-                language = "English (en)";
-                break;
-
-            case "2":
-                language = "French (fr)";
-                break;
-
-            case "3":
-                language = "English (en)";
-                break;
-
-            case "4":
-                language = "Swedish (sv)";
-                break;
-
-            case "5":
-                language = "Spanish (es)";
-                break;
-        }
-        $("#lang").html(language).show();
     }
 
-    //function GetLanguages(_territoryId) {
-    //    var url = "/Home/GetLanguagesByTerritory/";
-
-    //    $.ajax({
-    //        url: url,
-    //        data: { id: _territoryId },
-    //        cache: false,
-    //        type: "POST",
-    //        success: function (data) {
-    //            var markup = "";
-    //            for (var i = 0; i < data.length; i++) {
-    //                markup += "<option value=" + data[i].Value + ">" + data[i].Text + "</option>";
-    //            }
-    //            $("#ddllanguages").html(markup).show();
-    //        },
-    //        error: function (response) {
-    //            alert("error: " + response);
-    //        }
-    //    });
-
-    //}
 </script>

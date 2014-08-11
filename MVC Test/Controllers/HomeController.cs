@@ -15,11 +15,9 @@ namespace MVC_Test.Controllers
             objCustDistrModel.CustomerModel = new List<Customer>();
             objCustDistrModel.CustomerModel = GetCustomers();
 
-            //objCustDistrModel.LanguageModel = new List<Language>();
-            //objCustDistrModel.LanguageModel = GetLanguages();
-
             return View(objCustDistrModel);
         }
+
 
         [HttpPost]
         public ActionResult GetDistrByCustId(int id)
@@ -43,48 +41,37 @@ namespace MVC_Test.Controllers
         }
 
 
-        //[HttpPost]
-        //public ActionResult GetLanguagesByTerritory(int id)
-        //{
-        //    string code = "";
+        [HttpPost]
+        public ActionResult GetLanguagesByTerritory(int id)
+        {
+            List<SelectListItem> languages = new List<SelectListItem>();
 
-        //    switch (id)
-        //    {
-        //        case 1:
-        //            code = "US";
-        //            break;
+            switch (id)
+            {
+                case 1:
+                    languages.Add(new SelectListItem { Text = "English (en)", Value = "1" });
+                    break;
 
-        //        case 2:
-        //            code = "FR";
-        //            break;
+                case 2:
+                    languages.Add(new SelectListItem { Text = "French (fr)", Value = "1" });
+                    break;
 
-        //        case 3:
-        //            code = "CA";
-        //            break;
+                case 3:
+                    languages.Add(new SelectListItem { Text = "French (fr)", Value = "1" });
+                    languages.Add(new SelectListItem { Text = "English (en)", Value = "2" });
+                    break;
 
-        //        case 4:
-        //            code = "SE";
-        //            break;
+                case 4:
+                    languages.Add(new SelectListItem { Text = "Swedish (sv)", Value = "1" });
+                    break;
 
-        //        case 5:
-        //            code = "MX";
-        //            break;
-        //    }
+                case 5:
+                    languages.Add(new SelectListItem { Text = "Spanish (es)", Value = "1" });
+                    break;
+            }
 
-        //    List<Locales> objlocales = new List<Locales>();
-        //    objlocales = GetLocales().Where(m => m.LocaleName.Contains(code)).ToList();
-
-        //    List<Locales> objlocaleslist = new List<Locales>();
-
-        //    for (int i = 0; i < objlocales.Count; i++)
-        //    {
-        //        objlocaleslist.Add(new Locales { Id = i, LocaleName = objlocales[i].ToString() });
-        //    }
-
-        //    SelectList listlocales = new SelectList(objlocales, "Id", "LocaleName");
-
-        //    return Json(listlocales);
-        //}
+            return Json(languages);
+        }
 
 
 
@@ -112,17 +99,6 @@ namespace MVC_Test.Controllers
             return objdist;
         }
 
-        //public List<Language> GetLanguages()
-        //{
-        //    List<Language> objlanguages = new List<Language>();
-        //    objlanguages.Add(new Language { Id = 0, LanguageName = "--- Select ---" });
-        //    objlanguages.Add(new Language { Id = 1, LanguageName = "English (en)" });
-        //    objlanguages.Add(new Language { Id = 2, LanguageName = "French (fr)" });
-        //    objlanguages.Add(new Language { Id = 3, LanguageName = "Spanish (es)" });
-        //    objlanguages.Add(new Language { Id = 4, LanguageName = "Swedish (sv)" });
-
-        //    return objlanguages;
-        //}
 
         public List<Locale> GetLocales()
         {
