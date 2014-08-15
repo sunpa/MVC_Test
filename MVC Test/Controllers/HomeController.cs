@@ -77,8 +77,15 @@ namespace MVC_Test.Controllers
 
         [HttpPost]
         public ActionResult Save()
-        {
-             
+        {            
+            string customer = Request["ddlcustomer"];
+            string distributor = Request["ddldistr"];
+            string customerpo = Request["CustomerPO"];
+            string povalue = Request["POValue"];
+            string duedate = Request["dueDate"];
+            string priority = Request["Priority"];
+            string description = Request["Description"];
+            string locales = Request["locales"];
 
             return RedirectToAction("Search");
         }
