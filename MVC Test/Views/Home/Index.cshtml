@@ -105,26 +105,37 @@
             <div class="controls span6">
                 <label class="control-label" for="Title">Language:</label>
                 <select id="ddllanguage" name="ddllanguage" hidden="hidden"></select>
-                <br /><br />
 
-                <a type="button"
-                   class="btn"                   
-                   onclick="javascript: populateLocales();">Add</a>
             </div>
 
+
             <div class="controls span6">
+                <a href="#" type="button"
+                   class="btn"
+                   onclick="javascript: populateLocales();">Add</a>
+            </div>
+            <br /><br /><br />
+
+
+            <div class="controls span12">
                 <label class="control-label" for="Title">Locales:</label>
-                @*@Html.ListBox(lbLocales)*@
+                <select id="listlocale" name="listlocale" size="3"></select>&nbsp; Select One Primary Locale
 
             </div>
         </div>
+          
     </div>
     <div id="validationSummary" class="validation-summary">
         <ul></ul>
     </div>
     <div class="modal-footer">
         <a href="#" class="btn" data-dismiss="modal">Close</a>
-        <a href="#" class="btn btn-primary">Save Changes</a>
+        <a href="#" type="button"
+           class="btn" id="save"
+           >
+            Save
+        </a>
+        @*<input type="submit" name="Save" value="Save" />*@ 
     </div>
 </div>
 }
@@ -132,13 +143,40 @@
 
 <script language="javascript" type="text/javascript">
 
+    $("#save").on("click", function () {
+        var optionValues = [];
+        var optionSelected = false;
+
+        $("#listlocale option").each(function () {
+            optionValues.push($(this).val());
+            alert($(this).selected);
+        });
+
+
+    })
+
+
     function populateLocales()
     {
+        var size = 0;
         var terri = $("#ddlterritory option:selected").text();
         var lang = $("#ddllanguage option:selected").text();
-        var locale = lang.substr(lang.length-3, 2) + "-" + terri.substr(terri.length-3, 2);
+        var locale = lang.substr(lang.length - 3, 2) + "-" + terri.substr(terri.length - 3, 2);
+        var newListValue = $("listlocale").val();
+        var appendItem = "<option value=" + locale + ">" + locale + "</option>";
 
-        alert(locale);
+        $("#listlocale option").each(function () {
+            size += 1;
+        });
+
+        if (size < 3) {
+            $("#listlocale").append(appendItem);
+        }
+        else {
+            alert("Maximum of three locales can be added");
+        }
+
+        $("#listlocale").show();
     }
 
     function getDistr(_distrId) {

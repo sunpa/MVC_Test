@@ -13,6 +13,7 @@ namespace MVC_Test.Controllers
         {
             CustDistrModel objCustDistrModel = new CustDistrModel();
             objCustDistrModel.CustomerModel = new List<Customer>();
+            //objCustDistrModel.LocaleModel = new List<Locale>();
             objCustDistrModel.CustomerModel = GetCustomers();
 
             return View(objCustDistrModel);
@@ -73,7 +74,13 @@ namespace MVC_Test.Controllers
             return Json(languages);
         }
 
+        [HttpPost]
+        public ActionResult Locales()
+        {
+            var test = Request["ddlterritory"];
 
+            return View();
+        }
 
         public List<Customer> GetCustomers()
         {
@@ -100,17 +107,17 @@ namespace MVC_Test.Controllers
         }
 
 
-        public List<Locale> GetLocales()
-        {
-            List<Locale> objlocales = new List<Locale>();
-            objlocales.Add(new Locale { Id = 1, LocaleName = "en-US" });
-            objlocales.Add(new Locale { Id = 2, LocaleName = "fr-FR" });
-            objlocales.Add(new Locale { Id = 3, LocaleName = "fr-CA" });
-            objlocales.Add(new Locale { Id = 4, LocaleName = "es-MX" });
-            objlocales.Add(new Locale { Id = 5, LocaleName = "en-CA" });
-            objlocales.Add(new Locale { Id = 6, LocaleName = "sv-SE" });
+        //public List<Locale> GetLocales()
+        //{
+        //    List<Locale> objlocales = new List<Locale>();
+        //    objlocales.Add(new Locale { Id = 1, LocaleName = "en-US" });
+        //    objlocales.Add(new Locale { Id = 2, LocaleName = "fr-FR" });
+        //    objlocales.Add(new Locale { Id = 3, LocaleName = "fr-CA" });
+        //    objlocales.Add(new Locale { Id = 4, LocaleName = "es-MX" });
+        //    objlocales.Add(new Locale { Id = 5, LocaleName = "en-CA" });
+        //    objlocales.Add(new Locale { Id = 6, LocaleName = "sv-SE" });
 
-            return objlocales;
-        }
+        //    return objlocales;
+        //}
     }
 }
