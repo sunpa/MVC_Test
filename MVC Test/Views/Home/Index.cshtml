@@ -14,7 +14,7 @@
     });
 </script>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Save", "Home", FormMethod.Post, new { id = "saveForm" }))
 {
     <div class="main">
         <table style="width:100%">
@@ -25,15 +25,14 @@
                 </td>
                 <td style="width:50%">
                     <b><font color="red">*</font>Distributor</b><br />
-                    <select id="ddldistr" name="ddldistr" hidden="hidden">
-                    </select>
+                    <select id="ddldistr" name="ddldistr" hidden="hidden"></select>
                 </td>
             </tr>
             <tr><td style="height:20px">
             <tr>
                 <td style="width:50%">
                     <b><font color="red">*</font>Customer PO</b><br />
-                    @Html.TextBox("CustomerPO", "", new { style="width:100px" } )
+                    @Html.TextBox("CustomerPO", "", new { style = "width:100px" })
                 </td>
                 <td style="width:50%">
                     <b><font color="red">*</font>PO Value($)</b><br />
@@ -47,30 +46,45 @@
                     @Html.TextBox("dueDate", null, new { style = "width:100px" })
                 <td style="width:50%">
                     <b>Priority</b><br />
-                    @Html.DropDownList("Priority", new List<SelectListItem> 
-                        { 
+                    @Html.DropDownList("Priority", new List<SelectListItem>
+                        {
                             new SelectListItem { Text="--- Select ---", Value = "0"},
                             new SelectListItem { Text="Urgent", Value = "4"},
                             new SelectListItem { Text="High", Value = "3"},
                             new SelectListItem { Text="Normal", Value = "2"},
-                            new SelectListItem { Text="Low", Value = "1"}                        
+                            new SelectListItem { Text="Low", Value = "1"}
                         })
                 </td>
             </tr>
             <tr><td style="height:20px">
             <tr>
                 <td style="width:50%">
-                    <b><font color="red">*</font>Locales</b><br />
+                    <b><font color="red">*</font>Locales</b>
                     <a type="button"
                        class="btn"
                        href="#locale-editor"
                        data-toggle="modal">Add</a>
-                </td>
-                <td style="width:50%">
- 
-                </td>
-            </tr>
 
+                    <label id="locales"></label>
+                </td>
+                <td style="width:50%"></td>
+            </tr>
+            <tr><td style="height:20px">
+            <tr>
+                <td style="width:50%">
+                    <b>Description</b><br />
+                    @Html.TextArea("Description", string.Empty, new { cols = "250", rows = "5" })
+                </td>
+                <td style="width:50%"></td>
+            </tr>
+            <tr><td style="height:20px">
+            <tr>
+                <td style="width:50%">
+                    <input type="submit" value="Save">
+
+                </td>
+                <td style="width:50%"></td>
+            </tr>
         </table>
 
     </div>
@@ -145,14 +159,32 @@
 
     $("#save").on("click", function () {
         var optionValues = [];
+        var optionValue = "";
         var optionSelected = false;
 
-        $("#listlocale option").each(function () {
-            optionValues.push($(this).val());
-            alert($(this).selected);
+        $("#listlocale option:selected").each(function () {
+            optionValue = $(this).val();;
         });
 
+        if (optionValue == "") {
+            alert("A Primary Locale needs to be selected.");
+        }
+        else {
+            optionValue = ""
+            $("#listlocale option").each(function () {
+                optionValue += $(this).val() + ", ";
+            });
+        }
 
+        optionValue = $.trim(optionValue);
+
+        if (optionValue.slice(-1) == ",") {
+            optionValue = optionValue.substr(0, optionValue.length - 1);
+        }
+
+        $("#locales").html(optionValue).show();
+
+        $(this).closest(".modal").modal("hide");
     })
 
 
@@ -173,7 +205,7 @@
             $("#listlocale").append(appendItem);
         }
         else {
-            alert("Maximum of three locales can be added");
+            alert("Maximum of three locales can be added.");
         }
 
         $("#listlocale").show();

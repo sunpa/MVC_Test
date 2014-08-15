@@ -74,11 +74,17 @@ namespace MVC_Test.Controllers
             return Json(languages);
         }
 
-        [HttpPost]
-        public ActionResult Locales()
-        {
-            var test = Request["ddlterritory"];
 
+        [HttpPost]
+        public ActionResult Save()
+        {
+             
+
+            return RedirectToAction("Search");
+        }
+
+        public ActionResult Search()
+        {
             return View();
         }
 
@@ -119,5 +125,6 @@ namespace MVC_Test.Controllers
 
         //    return objlocales;
         //}
+
     }
 }
